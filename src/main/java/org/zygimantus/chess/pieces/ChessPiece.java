@@ -13,8 +13,12 @@ public abstract class ChessPiece {
         this.piece = piece;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
     public int getRank() {
-        return color.getRank();
+        return getColor().getRank();
     }
 
     public int getFile() {

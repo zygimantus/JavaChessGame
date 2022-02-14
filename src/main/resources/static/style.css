@@ -10,11 +10,147 @@ td:after {
   display: block;
   margin-top: 100%;
 }
-td .content {
+td .WHITE-KING {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/king.svg");
+}
+td .BLACK-KING {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/king.svg");
+  -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+          filter: invert(100%);
+}
+td .WHITE-QUEEN {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/queen.svg");
+}
+td .BLACK-QUEEN {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/queen.svg");
+  -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+          filter: invert(100%);
+}
+td .WHITE-ROOK {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/rook.svg");
+}
+td .BLACK-ROOK {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/rook.svg");
+  -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+          filter: invert(100%);
+}
+td .WHITE-BISHOP {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/bishop.svg");
+}
+td .BLACK-BISHOP {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/bishop.svg");
+  -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+          filter: invert(100%);
+}
+td .WHITE-KNIGHT {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/knight.svg");
+}
+td .BLACK-KNIGHT {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/knight.svg");
+  -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+          filter: invert(100%);
+}
+td .WHITE-PAWN {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/pawn.svg");
+}
+td .BLACK-PAWN {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gold;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url("icons/pawn.svg");
+  -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
+          filter: invert(100%);
 }

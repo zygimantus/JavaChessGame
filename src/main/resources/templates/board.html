@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title>Chess Board</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<table>
+    <tr th:each="i: ${squares}">
+        <td th:each="item: ${i}">
+            <div th:class="content" th:text="${item}"></div>
+        </td>
+    <tr>
+</table>
+</body>
+</html>

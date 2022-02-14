@@ -1,8 +1,8 @@
 package org.zygimantus.chess.enums;
 
 public enum Color {
-    BLACK(8),
-    WHITE(1);
+    BLACK(1),
+    WHITE(8);
 
     private final int rank;
 

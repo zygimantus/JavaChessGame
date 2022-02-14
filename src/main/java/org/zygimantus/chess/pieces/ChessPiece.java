@@ -8,9 +8,17 @@ public abstract class ChessPiece {
     protected final Color color;
     protected final Piece piece;
 
+    protected int number;
+
     protected ChessPiece(Color color, Piece piece) {
         this.color = color;
         this.piece = piece;
+    }
+
+    protected ChessPiece(Color color, Piece piece, int number) {
+        this.color = color;
+        this.piece = piece;
+        this.number = number;
     }
 
     public Color getColor() {

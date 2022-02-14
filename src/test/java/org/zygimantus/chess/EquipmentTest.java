@@ -1,13 +1,16 @@
 package org.zygimantus.chess;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 import org.zygimantus.chess.enums.Color;
 import org.zygimantus.chess.pieces.*;
 
 import java.util.Arrays;
 
-public class EquipmentTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+public class EquipmentTest {
+
+    @Test
     public void testChessPiecesPositionsOnBoard() {
         // Given
         ChessPiece[][] expected = new ChessPiece[Consts.NO_OF_FILES][Consts.NO_OF_RANKS];

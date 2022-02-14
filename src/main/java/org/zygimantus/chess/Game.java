@@ -1,10 +1,16 @@
 package org.zygimantus.chess;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.zygimantus.chess.pieces.ChessPiece;
 
+@SpringBootApplication
 public class Game {
 
     public static void main(String[] args) {
+
+        SpringApplication.run(Game.class, args);
+
         System.out.println("Preparing a chess game!");
 
         Equipment equipment = new Equipment();

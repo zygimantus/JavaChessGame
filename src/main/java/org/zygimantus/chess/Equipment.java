@@ -31,13 +31,13 @@ public class Equipment {
                 } else if (Queen.class.equals(chessPieceClass)) {
                     chessPiece = new Queen(color);
                 } else if (Rook.class.equals(chessPieceClass)) {
-                    chessPiece = new Rook(color, rooksCounter++);
+                    chessPiece = new Rook(color, ++rooksCounter);
                 } else if (Bishop.class.equals(chessPieceClass)) {
-                    chessPiece = new Bishop(color, bishopsCounter++);
+                    chessPiece = new Bishop(color, ++bishopsCounter);
                 } else if (Knight.class.equals(chessPieceClass)) {
-                    chessPiece = new Knight(color, knightsCounter++);
+                    chessPiece = new Knight(color, ++knightsCounter);
                 } else if (Pawn.class.equals(chessPieceClass)) {
-                    chessPiece = new Pawn(color, pawnsCounter++);
+                    chessPiece = new Pawn(color, ++pawnsCounter);
                 }
                 chessPieces.add(chessPiece);
             }

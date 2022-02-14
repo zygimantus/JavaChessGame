@@ -16,6 +16,6 @@ public class Pawn extends ChessPiece {
 
     @Override
     public int getFile() {
-        return number + 1;
+        return number;
     }
 }

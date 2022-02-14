@@ -57,10 +57,6 @@ public abstract class ChessPiece {
 
     @Override
     public String toString() {
-        return "ChessPiece{" +
-                "number=" + number +
-                ", color=" + color +
-                ", piece=" + piece +
-                '}';
+        return color + " " + piece;
     }
 }

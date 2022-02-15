@@ -10,13 +10,21 @@ td:after {
   display: block;
   margin-top: 100%;
 }
-td .content {
+td .grey_square {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
+  background: grey;
+}
+td .white_square {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
 }
 td .WHITE-KING {
   position: absolute;
@@ -24,7 +32,6 @@ td .WHITE-KING {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/white/king.svg");
@@ -35,7 +42,6 @@ td .BLACK-KING {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/black/king.svg");
@@ -46,7 +52,6 @@ td .WHITE-QUEEN {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/white/queen.svg");
@@ -57,7 +62,6 @@ td .BLACK-QUEEN {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/black/queen.svg");
@@ -68,7 +72,6 @@ td .WHITE-ROOK {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/white/rook.svg");
@@ -79,7 +82,6 @@ td .BLACK-ROOK {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/black/rook.svg");
@@ -90,7 +92,6 @@ td .WHITE-BISHOP {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/white/bishop.svg");
@@ -101,7 +102,6 @@ td .BLACK-BISHOP {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/black/bishop.svg");
@@ -112,7 +112,6 @@ td .WHITE-KNIGHT {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/white/knight.svg");
@@ -123,7 +122,6 @@ td .BLACK-KNIGHT {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/black/knight.svg");
@@ -134,7 +132,6 @@ td .WHITE-PAWN {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/white/pawn.svg");
@@ -145,7 +142,6 @@ td .BLACK-PAWN {
   bottom: 0;
   left: 0;
   right: 0;
-  background: gold;
   background-repeat: no-repeat;
   background-size: cover;
   background-image: url("icons/black/pawn.svg");

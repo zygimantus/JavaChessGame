@@ -10,7 +10,9 @@
 <table>
     <tr th:each="i: ${squares}">
         <td th:each="item: ${i}">
-            <div th:class="${item}"></div>
+            <div th:class="content">
+                <div th:class="${item}"></div>
+            </div>
 <!--            <div th:class="content" th:text="${item}"></div>-->
         </td>
     <tr>

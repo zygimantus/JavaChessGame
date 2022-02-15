@@ -8,9 +8,11 @@
 </head>
 <body>
 <table>
-    <tr th:each="i: ${squares}">
-        <td th:each="item: ${i}">
-            <div th:class="content" th:text="${item}"></div>
+    <tr th:each="rank,i: ${squares}">
+        <td th:each="square,j: ${rank}">
+            <div th:class="${(i.index + j.index) % 2 == 0} ? 'white_square' : 'grey_square'">
+                <div th:class="${square}"></div>
+            </div>
         </td>
     <tr>
 </table>

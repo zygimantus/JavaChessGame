@@ -11,7 +11,8 @@ public class Pawn extends ChessPiece {
 
     @Override
     public int getRank() {
-        return (color == Color.WHITE) ? 2 : 7;
+        // TODO use formula better
+        return (color == Color.WHITE) ? 7 : 2;
     }
 
     @Override

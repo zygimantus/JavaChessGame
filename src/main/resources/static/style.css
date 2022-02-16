@@ -1,5 +1,6 @@
-table {
+.table {
   width: 25%;
+  border-spacing: 0;
 }
 td {
   width: 12.5%;
@@ -10,23 +11,20 @@ td:after {
   display: block;
   margin-top: 100%;
 }
-td .grey_square {
+td .square {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+}
+td .grey_square {
   background: grey;
 }
 td .white_square {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background: white;
 }
-td .WHITE-KING {
+td .piece {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -34,115 +32,40 @@ td .WHITE-KING {
   right: 0;
   background-repeat: no-repeat;
   background-size: cover;
+}
+td .WHITE-KING {
   background-image: url("icons/white/king.svg");
 }
 td .BLACK-KING {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/black/king.svg");
 }
 td .WHITE-QUEEN {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/white/queen.svg");
 }
 td .BLACK-QUEEN {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/black/queen.svg");
 }
 td .WHITE-ROOK {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/white/rook.svg");
 }
 td .BLACK-ROOK {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/black/rook.svg");
 }
 td .WHITE-BISHOP {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/white/bishop.svg");
 }
 td .BLACK-BISHOP {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/black/bishop.svg");
 }
 td .WHITE-KNIGHT {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/white/knight.svg");
 }
 td .BLACK-KNIGHT {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/black/knight.svg");
 }
 td .WHITE-PAWN {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/white/pawn.svg");
 }
 td .BLACK-PAWN {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
   background-image: url("icons/black/pawn.svg");
 }

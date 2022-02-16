@@ -5,13 +5,32 @@
     <title>Chess Board</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="../style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(function() {
+          $(".piece").draggable({
+              stack: ".empty",
+              distance: 0
+          });
+          $(".table tbody tr td div").droppable({
+            accept: ".piece",
+            drop: function(e, ui) {
+              ui.draggable.appendTo($(this)).css({
+                top: "0em",
+                left: "0em"
+              });
+            }
+          });
+        });
+    </script>
 </head>
 <body>
-<table>
+<table class="table">
     <tr th:each="rank,i: ${squares}">
         <td th:each="square,j: ${rank}">
-            <div th:class="${(i.index + j.index) % 2 == 0} ? 'white_square' : 'grey_square'">
-                <div th:class="${square}"></div>
+            <div th:class="square" th:classappend="${(i.index + j.index) % 2 == 0} ? 'white_square' : 'grey_square'">
+                <div th:class="${square ne null} ? 'piece' : 'empty'" th:classappend="${square}" ></div>
             </div>
         </td>
     <tr>

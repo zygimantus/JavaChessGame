@@ -11,6 +11,9 @@ public abstract class ChessPiece {
     protected final Color color;
     protected final Piece piece;
 
+    protected int rank;
+    protected int file;
+
     /**
      * Constructor for a unique chess piece
      */
@@ -26,20 +29,32 @@ public abstract class ChessPiece {
         this.number = number;
     }
 
+    public final void move() {
+        rank++;
+    }
+
     public Color getColor() {
         return color;
     }
 
-    public int getRank() {
-        return getColor().getRank();
+    public final int getRank() {
+        return this.rank;
     }
 
-    public int getFile() {
-        return piece.getFile();
+    public final int getFile() {
+        return this.file;
     }
 
     public char getSymbol() {
         return piece.getSymbol();
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public void setFile(int file) {
+        this.file = file;
     }
 
     @Override

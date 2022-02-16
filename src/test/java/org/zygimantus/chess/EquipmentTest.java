@@ -1,12 +1,14 @@
 package org.zygimantus.chess;
 
 import org.junit.jupiter.api.Test;
+import org.zygimantus.chess.board.TwoPlayerBoard;
 import org.zygimantus.chess.enums.Color;
 import org.zygimantus.chess.pieces.*;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.zygimantus.chess.Consts.NO_OF_PLAYERS;
 
 class EquipmentTest {
 
@@ -53,11 +55,11 @@ class EquipmentTest {
         expected[6][7] = new Pawn(Color.WHITE, 8);
 
         // When
-        Equipment equipment = new Equipment();
+        Equipment equipment = new Equipment(NO_OF_PLAYERS);
 
         // Then
-        Board board = equipment.getBoard();
-        ChessPiece[][] squares = board.getSquares();
+        TwoPlayerBoard twoPlayerBoard = (TwoPlayerBoard) equipment.getBoard();
+        ChessPiece[][] squares = twoPlayerBoard.getSquares();
 
         assertTrue(Arrays.deepEquals(expected[0], squares[0]));
     }

@@ -8,9 +8,4 @@ public class Bishop extends ChessPiece {
     public Bishop(Color color, int number) {
         super(color, Piece.BISHOP, number);
     }
-
-    @Override
-    public int getFile() {
-        return (number == 1) ? super.getFile() : super.getFile() + 3;
-    }
 }

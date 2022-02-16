@@ -47,6 +47,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!-- Heroku Maven Plugin Configuration -->
             <plugin>
                 <groupId>com.heroku.sdk</groupId>

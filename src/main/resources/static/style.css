@@ -12,8 +12,16 @@
 .right {
   width: 25%;
 }
-nav ul{height:720px;}
-nav ul{overflow:hidden; overflow-y:scroll;}
+nav ul {
+    height:720px;
+}
+nav ul {
+    overflow: hidden;
+    overflow-y: scroll;
+}
+nav li {
+    list-style: none;
+}
 .table {
   width: 100%;
   border-spacing: 0;

@@ -13,7 +13,7 @@
               stack: ".empty",
               distance: 0
           });
-          $(".table tbody tr td div").droppable({
+          $(".square").droppable({
             accept: ".piece",
             drop: function(e, ui) {
                 var piece_name = $(ui.draggable[0]).attr('name').split('-');

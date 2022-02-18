@@ -40,15 +40,20 @@ public class MoveValidator {
     }
 
     private boolean validateRookMove(ChessPiece chessPiece, int rank, int file) {
+        int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
         boolean validMove = false;
         if (chessPiece.getColor() == Color.BLACK) {
             if (currentFile == file && rank >= 0 && rank < Consts.NO_OF_RANKS) {
                 validMove = true;
+            } else if (currentRank == rank && file >= 0 && file < Consts.NO_OF_FILES) {
+                validMove = true;
             }
         } else {
             if (currentFile == file && rank >= 0 && rank < Consts.NO_OF_RANKS) {
+                validMove = true;
+            } else if (currentRank == rank && file >= 0 && file < Consts.NO_OF_FILES) {
                 validMove = true;
             }
         }

@@ -9,8 +9,14 @@ import static org.zygimantus.chess.Consts.NO_OF_PLAYERS;
 @Service
 public class BoardInitializer {
 
+    private Equipment equipment;
+
     public TwoPlayerBoard prepareInitialBoardSetup() {
-        Equipment equipment = new Equipment(NO_OF_PLAYERS);
+        equipment = new Equipment(NO_OF_PLAYERS);
         return (TwoPlayerBoard) equipment.getBoard();
+    }
+
+    public TwoPlayerBoard getBoard() {
+        return (TwoPlayerBoard) this.equipment.getBoard();
     }
 }

@@ -12,6 +12,7 @@ public class TwoPlayerBoard extends Board {
 
     private final ChessPiece[][] squares = new ChessPiece[NO_OF_RANKS][NO_OF_FILES];
 
+    int queensCounter = 0;
     int rooksCounter = 0;
     int bishopsCounter = 0;
     int knightsCounter = 0;
@@ -45,7 +46,7 @@ public class TwoPlayerBoard extends Board {
         if (King.class.equals(chessPieceClass)) {
             chessPiece = new King(color);
         } else if (Queen.class.equals(chessPieceClass)) {
-            chessPiece = new Queen(color);
+            chessPiece = new Queen(color, ++queensCounter);
         } else if (Rook.class.equals(chessPieceClass)) {
             chessPiece = new Rook(color, ++rooksCounter);
         } else if (Bishop.class.equals(chessPieceClass)) {

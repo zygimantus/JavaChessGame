@@ -1,26 +1,19 @@
 package org.zygimantus.chess.enums;
 
-public enum Piece {
-    KING(5, 'K'),
-    QUEEN(4, 'Q'),
-    ROOK(1, 'R'),
-    BISHOP(3, 'B'),
-    KNIGHT(2, 'N'),
-    PAWN(1, 'P');
+import lombok.Getter;
 
-    private final int file;
+@Getter
+public enum Piece {
+    KING('K'),
+    QUEEN('Q'),
+    ROOK('R'),
+    BISHOP('B'),
+    KNIGHT('N'),
+    PAWN('P');
+
     private final char symbol;
 
-    Piece(int file, char symbol) {
-        this.file = file;
+    Piece(char symbol) {
         this.symbol = symbol;
-    }
-
-    public int getFile() {
-        return file;
-    }
-
-    public char getSymbol() {
-        return symbol;
     }
 }

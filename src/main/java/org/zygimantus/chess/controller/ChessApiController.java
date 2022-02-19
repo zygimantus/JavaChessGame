@@ -1,6 +1,5 @@
 package org.zygimantus.chess.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.zygimantus.chess.Response;
 import org.zygimantus.chess.pieces.ChessPiece;
@@ -12,7 +11,6 @@ public class ChessApiController {
 
     private final MoveValidator moveValidator;
 
-    @Autowired
     public ChessApiController(MoveValidator moveValidator) {
         this.moveValidator = moveValidator;
     }

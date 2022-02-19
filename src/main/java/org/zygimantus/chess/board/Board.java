@@ -1,10 +1,8 @@
 package org.zygimantus.chess.board;
 
-import org.zygimantus.chess.pieces.ChessPiece;
-
-import java.util.List;
+import org.zygimantus.chess.enums.Color;
 
 public abstract class Board {
 
-    protected abstract void putPiecesOnBoard(List<ChessPiece> pieces);
+    protected abstract void putPiecesOnBoard(Color color);
 }

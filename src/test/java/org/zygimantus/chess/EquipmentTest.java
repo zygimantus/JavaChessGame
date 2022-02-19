@@ -20,7 +20,7 @@ class EquipmentTest {
         expected[0][0] = new Rook(Color.BLACK, 1);
         expected[0][1] = new Knight(Color.BLACK, 1);
         expected[0][2] = new Bishop(Color.BLACK, 1);
-        expected[0][3] = new Queen(Color.BLACK);
+        expected[0][3] = new Queen(Color.BLACK, 1);
         expected[0][4] = new King(Color.BLACK);
         expected[0][5] = new Bishop(Color.BLACK, 2);
         expected[0][6] = new Knight(Color.BLACK, 2);
@@ -39,7 +39,7 @@ class EquipmentTest {
         expected[7][0] = new Rook(Color.WHITE, 1);
         expected[7][1] = new Knight(Color.WHITE, 1);
         expected[7][2] = new Bishop(Color.WHITE, 1);
-        expected[7][3] = new Queen(Color.WHITE);
+        expected[7][3] = new Queen(Color.WHITE, 1);
         expected[7][4] = new King(Color.WHITE);
         expected[7][5] = new Bishop(Color.WHITE, 2);
         expected[7][6] = new Knight(Color.WHITE, 2);

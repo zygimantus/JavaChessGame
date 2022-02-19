@@ -29,15 +29,6 @@ public abstract class ChessPiece {
     protected int rank;
     protected int file;
 
-    /**
-     * Constructor for a unique chess piece
-     */
-    protected ChessPiece(Color color, Piece piece) {
-        this.number = 1;
-        this.color = color;
-        this.piece = piece;
-    }
-
     protected ChessPiece(Color color, Piece piece, int number) {
         this.color = color;
         this.piece = piece;

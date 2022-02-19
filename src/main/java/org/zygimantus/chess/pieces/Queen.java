@@ -5,7 +5,7 @@ import org.zygimantus.chess.enums.Piece;
 
 public class Queen extends ChessPiece {
 
-    public Queen(Color color) {
-        super(color, Piece.QUEEN, 1);
+    public Queen(Color color, int number) {
+        super(color, Piece.QUEEN, number);
     }
 }

@@ -16,7 +16,7 @@ public class ChessApiController {
     }
 
     @PostMapping("/move")
-    public Response greeting(@RequestParam(value = "rank") int rank, @RequestParam(value = "file") int file,
+    public Response move(@RequestParam(value = "rank") int rank, @RequestParam(value = "file") int file,
                              @RequestBody ChessPiece chessPiece) {
         boolean isValidMove = moveValidator.validate(chessPiece, rank, file);
 

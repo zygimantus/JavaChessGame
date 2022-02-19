@@ -9,6 +9,11 @@
     <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $(function() {
+            $('input').on('click', function () {
+                $.get("reset").done(function(fragment) { // get from controller
+                    $("#board").replaceWith(fragment); // update snippet of page
+                });
+            });
           $(".piece").draggable({
               revert: "invalid",
               stack: ".empty",
@@ -49,7 +54,7 @@
 <div class="content">
 <div class="row">
     <div class="left">
-    <table class="table">
+    <table id="board" class="table">
         <tr th:each="rank,i: ${squares}">
             <td th:each="square,j: ${rank}">
                 <div th:class="square" th:classappend="${(i.index + j.index) % 2 == 0} ? 'white_square' : 'grey_square'" th:attr="data-rank=${i.index},data-file=${j.index}">
@@ -60,10 +65,11 @@
     </table>
     </div>
     <div class="right">
-    <nav name="moves">
-        <ul>
-        </ul>
-    </nav>
+        <input type='button' value="Reset">
+        <nav name="moves">
+            <ul>
+            </ul>
+        </nav>
     </div>
 </div>
 </div>

@@ -8,9 +8,9 @@
 .left {
   width: 75%;
 }
-
 .right {
   width: 25%;
+  text-align: center;
 }
 nav ul {
     height:720px;

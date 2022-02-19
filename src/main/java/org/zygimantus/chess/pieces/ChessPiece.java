@@ -2,12 +2,9 @@ package org.zygimantus.chess.pieces;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.zygimantus.chess.enums.Color;
 import org.zygimantus.chess.enums.Piece;
-
-import java.util.Objects;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "piece")
 @JsonSubTypes({
@@ -18,8 +15,7 @@ import java.util.Objects;
         @JsonSubTypes.Type(value = Knight.class, name = "KNIGHT"),
         @JsonSubTypes.Type(value = Pawn.class, name = "PAWN"),
 })
-@Getter
-@Setter
+@Data
 public abstract class ChessPiece {
 
     protected final int number;
@@ -33,19 +29,6 @@ public abstract class ChessPiece {
         this.color = color;
         this.piece = piece;
         this.number = number;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ChessPiece that = (ChessPiece) o;
-        return number == that.number && color == that.color && piece == that.piece;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(number, color, piece);
     }
 
     @Override

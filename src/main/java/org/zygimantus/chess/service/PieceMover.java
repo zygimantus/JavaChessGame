@@ -59,6 +59,7 @@ public class PieceMover {
             isValidMove = validateBishopMove(chessPiece, rank, file);
         }
         if (chessPiece.getPiece() == Piece.QUEEN) {
+            // moving queen is either rook or bishop move
             isValidMove = validateRookMove(chessPiece, rank, file) || validateBishopMove(chessPiece, rank, file);
         }
 
@@ -76,6 +77,7 @@ public class PieceMover {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
+        // moving rook means keeping either file or rank same
         return currentFile == file || currentRank == rank;
     }
 
@@ -83,6 +85,7 @@ public class PieceMover {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
+        // moving bishop is diagonal which is always having same difference of rank and file
         return Math.abs(currentRank - rank) == Math.abs(currentFile - file);
     }
 
@@ -108,16 +111,7 @@ public class PieceMover {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
-        boolean validMove = false;
-        if (chessPiece.getColor() == Color.BLACK) {
-            if (currentFile == file && currentRank + 1 == rank && rank < Consts.NO_OF_RANKS) {
-                validMove = true;
-            }
-        } else {
-            if (currentFile == file && currentRank - 1 == rank && rank >= 0) {
-                validMove = true;
-            }
-        }
-        return validMove;
+        // king moves by one square which is having rank or file changed by 1
+        return Math.abs(currentRank - rank) == 1 || Math.abs(currentFile - file) == 1;
     }
 }

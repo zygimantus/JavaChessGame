@@ -1,15 +1,15 @@
 .content {
-  max-width: 960px;
+  max-width: 1024px;
   margin: auto;
 }
 .row {
   display: flex;
 }
 .left {
-  width: 75%;
+  width: 65%;
 }
 .right {
-  width: 25%;
+  width: 35%;
   text-align: center;
 }
 nav ul {

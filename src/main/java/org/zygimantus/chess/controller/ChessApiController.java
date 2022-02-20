@@ -1,7 +1,7 @@
 package org.zygimantus.chess.controller;
 
 import org.springframework.web.bind.annotation.*;
-import org.zygimantus.chess.Response;
+import org.zygimantus.chess.ChessMove;
 import org.zygimantus.chess.pieces.ChessPiece;
 import org.zygimantus.chess.service.PieceMover;
 
@@ -16,10 +16,9 @@ public class ChessApiController {
     }
 
     @PostMapping("/move")
-    public Response move(@RequestParam(value = "rank") int rank, @RequestParam(value = "file") int file,
-                             @RequestBody ChessPiece chessPiece) {
-        boolean isValidMove = pieceMover.move(chessPiece, rank, file);
+    public ChessMove move(@RequestParam(value = "rank") int rank, @RequestParam(value = "file") int file,
+                          @RequestBody ChessPiece chessPiece) {
 
-        return new Response(isValidMove);
+        return pieceMover.move(chessPiece, rank, file);
     }
 }

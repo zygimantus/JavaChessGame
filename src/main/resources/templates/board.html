@@ -22,12 +22,14 @@
           $(".square").droppable({
             accept: ".piece",
             drop: function(e, ui) {
-                var piece_name = $(ui.draggable[0]).attr('name').split('-');
-                var piece_rank = $($(ui.draggable[0]).parent()[0]).attr('data-rank');
-                var piece_file = $($(ui.draggable[0]).parent()[0]).attr('data-file');
+                var piece = $(ui.draggable[0]);
+                var piece_name = piece.attr('name').split('-');
+                var piece_rank = $(piece.parent()[0]).attr('data-rank');
+                var piece_file = $(piece.parent()[0]).attr('data-file');
 
-                var move_to_rank = $(this).attr('data-rank');
-                var move_to_file = $(this).attr('data-file');
+                var square = $(this);
+                var move_to_rank = square.attr('data-rank');
+                var move_to_file = square.attr('data-file');
 
                 var piece = { color: piece_name[0], piece: piece_name[1], rank: piece_rank, file: piece_file };
 
@@ -38,7 +40,10 @@
                     data: JSON.stringify(piece),
                     contentType: "application/json; charset=UTF-8"
                 }).then(function(data) {
-                   $('ul').append('<li>' + data.description + '</li>')
+                    $('ul').append('<li>' + data.description + '</li>');
+                    if (data.capturingMove) {
+                        $(":first-child", square).remove();
+                   }
                 });
 
               ui.draggable.appendTo($(this)).css({

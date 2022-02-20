@@ -52,6 +52,8 @@ public class PieceMover {
         if (isValidMove) {
             pickedPiece.setRank(rank);
             pickedPiece.setFile(file);
+            board.getSquares()[rank][file] = pickedPiece;
+            board.getSquares()[currentRank][currentFile] = null;
         }
 
         return isValidMove;

@@ -12,47 +12,51 @@
             $('input').on('click', function () {
                 $.get("reset").done(function(fragment) { // get from controller
                     $("#board").replaceWith(fragment); // update snippet of page
+                    initDragAndDrop();
                 });
             });
-          $(".piece").draggable({
-              revert: "invalid",
-              stack: ".empty",
-              distance: 0
-          });
-          $(".square").droppable({
-            accept: ".piece",
-            drop: function(e, ui) {
-                var piece = $(ui.draggable[0]);
-                var piece_name = piece.attr('name').split('-');
-                var piece_rank = $(piece.parent()[0]).attr('data-rank');
-                var piece_file = $(piece.parent()[0]).attr('data-file');
-
-                var square = $(this);
-                var move_to_rank = square.attr('data-rank');
-                var move_to_file = square.attr('data-file');
-
-                var piece = { color: piece_name[0], piece: piece_name[1], rank: piece_rank, file: piece_file };
-
-                $.ajax({
-                    url: "/api/move?rank=" + move_to_rank + "&file=" + move_to_file,
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(piece),
-                    contentType: "application/json; charset=UTF-8"
-                }).then(function(data) {
-                    $('ul').append('<li>' + data.description + '</li>');
-                    if (data.capturingMove) {
-                        $(":first-child", square).remove();
-                   }
-                });
-
-              ui.draggable.appendTo($(this)).css({
-                top: "0em",
-                left: "0em"
-              });
-            }
-          });
+            initDragAndDrop();
         });
+        function initDragAndDrop(){
+            $(".piece").draggable({
+                revert: "invalid",
+                stack: ".empty",
+                distance: 0
+            });
+            $(".square").droppable({
+                accept: ".piece",
+                drop: function(e, ui) {
+                    var piece = $(ui.draggable);
+                    var piece_name = piece.attr('name').split('-');
+                    var piece_rank = $(piece.parent()[0]).attr('data-rank');
+                    var piece_file = $(piece.parent()[0]).attr('data-file');
+
+                    var square = $(this);
+                    var move_to_rank = square.attr('data-rank');
+                    var move_to_file = square.attr('data-file');
+
+                    var piece = { color: piece_name[0], piece: piece_name[1], rank: piece_rank, file: piece_file };
+
+                    $.ajax({
+                        url: "/api/move?rank=" + move_to_rank + "&file=" + move_to_file,
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(piece),
+                        contentType: "application/json; charset=UTF-8"
+                    }).then(function(data) {
+                        $('ul').append('<li>' + data.description + '</li>');
+                        if (data.capturingMove) {
+                            $(":first-child", square).remove();
+                       }
+                    });
+
+                    ui.draggable.appendTo($(this)).css({
+                        top: "0em",
+                        left: "0em"
+                    });
+                }
+            });
+        }
     </script>
 </head>
 <body>

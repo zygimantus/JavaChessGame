@@ -19,6 +19,7 @@ public class PieceMover {
     public boolean move(ChessPiece chessPiece, int rank, int file) {
         boolean isValidMove = false;
 
+        // first check if rank or file does not escape board boundaries
         if (rank >= Consts.NO_OF_RANKS || rank < 0) {
             return false;
         }
@@ -52,6 +53,9 @@ public class PieceMover {
         if (chessPiece.getPiece() == Piece.PAWN) {
             isValidMove = validatePawnMove(chessPiece, rank, file);
         }
+        if (chessPiece.getPiece() == Piece.KNIGHT) {
+            isValidMove = validateKnightMove(chessPiece, rank, file);
+        }
         if (chessPiece.getPiece() == Piece.ROOK) {
             isValidMove = validateRookMove(chessPiece, rank, file);
         }
@@ -71,6 +75,15 @@ public class PieceMover {
         }
 
         return isValidMove;
+    }
+
+    private boolean validateKnightMove(ChessPiece chessPiece, int rank, int file) {
+        int currentRank = chessPiece.getRank();
+        int currentFile = chessPiece.getFile();
+
+        // moving knight means changing file or rank by +-2 and opposite to +-1
+        return Math.abs(currentRank - rank) == 2 && Math.abs(currentFile - file) == 1 ||
+                Math.abs(currentFile - file) == 2 && Math.abs(currentRank - rank) == 1;
     }
 
     private boolean validateRookMove(ChessPiece chessPiece, int rank, int file) {

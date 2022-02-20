@@ -48,6 +48,9 @@ public class PieceMover {
         if (chessPiece.getPiece() == Piece.BISHOP) {
             isValidMove = validateBishopMove(chessPiece, rank, file);
         }
+        if (chessPiece.getPiece() == Piece.QUEEN) {
+            isValidMove = validateRookMove(chessPiece, rank, file) || validateBishopMove(chessPiece, rank, file);
+        }
 
         if (isValidMove) {
             pickedPiece.setRank(rank);

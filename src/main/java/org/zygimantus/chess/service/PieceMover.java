@@ -19,6 +19,14 @@ public class PieceMover {
     public boolean move(ChessPiece chessPiece, int rank, int file) {
         boolean isValidMove = false;
 
+        // first check if rank or file does not escape board boundaries
+        if (rank >= Consts.NO_OF_RANKS || rank < 0) {
+            return false;
+        }
+        if (file >= Consts.NO_OF_RANKS || file < 0) {
+            return false;
+        }
+
         TwoPlayerBoard board = boardInitializer.getBoard();
         ChessPiece existingPiece = board.getSquares()[rank][file];
 
@@ -39,8 +47,14 @@ public class PieceMover {
             return false;
         }
 
+        if (chessPiece.getPiece() == Piece.KING) {
+            isValidMove = validateKingMove(chessPiece, rank, file);
+        }
         if (chessPiece.getPiece() == Piece.PAWN) {
             isValidMove = validatePawnMove(chessPiece, rank, file);
+        }
+        if (chessPiece.getPiece() == Piece.KNIGHT) {
+            isValidMove = validateKnightMove(chessPiece, rank, file);
         }
         if (chessPiece.getPiece() == Piece.ROOK) {
             isValidMove = validateRookMove(chessPiece, rank, file);
@@ -48,26 +62,43 @@ public class PieceMover {
         if (chessPiece.getPiece() == Piece.BISHOP) {
             isValidMove = validateBishopMove(chessPiece, rank, file);
         }
+        if (chessPiece.getPiece() == Piece.QUEEN) {
+            // moving queen is either rook or bishop move
+            isValidMove = validateRookMove(chessPiece, rank, file) || validateBishopMove(chessPiece, rank, file);
+        }
 
         if (isValidMove) {
             pickedPiece.setRank(rank);
             pickedPiece.setFile(file);
+            board.getSquares()[rank][file] = pickedPiece;
+            board.getSquares()[currentRank][currentFile] = null;
         }
 
         return isValidMove;
+    }
+
+    private boolean validateKnightMove(ChessPiece chessPiece, int rank, int file) {
+        int currentRank = chessPiece.getRank();
+        int currentFile = chessPiece.getFile();
+
+        // moving knight means changing file or rank by +-2 and opposite to +-1
+        return Math.abs(currentRank - rank) == 2 && Math.abs(currentFile - file) == 1 ||
+                Math.abs(currentFile - file) == 2 && Math.abs(currentRank - rank) == 1;
     }
 
     private boolean validateRookMove(ChessPiece chessPiece, int rank, int file) {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
-        return currentFile == file && rank >= 0 && rank < Consts.NO_OF_RANKS || currentRank == rank && file >= 0 && file < Consts.NO_OF_FILES;
+        // moving rook means keeping either file or rank same
+        return currentFile == file || currentRank == rank;
     }
 
     private boolean validateBishopMove(ChessPiece chessPiece, int rank, int file) {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
+        // moving bishop is diagonal which is always having same difference of rank and file
         return Math.abs(currentRank - rank) == Math.abs(currentFile - file);
     }
 
@@ -76,15 +107,24 @@ public class PieceMover {
         int currentFile = chessPiece.getFile();
 
         boolean validMove = false;
+        // pawns move always on same file forwards or backwards (according to color)
         if (chessPiece.getColor() == Color.BLACK) {
-            if (currentFile == file && currentRank + 1 == rank && rank < Consts.NO_OF_RANKS) {
+            if (currentFile == file && currentRank + 1 == rank) {
                 validMove = true;
             }
         } else {
-            if (currentFile == file && currentRank - 1 == rank && rank >= 0) {
+            if (currentFile == file && currentRank - 1 == rank) {
                 validMove = true;
             }
         }
         return validMove;
+    }
+
+    private boolean validateKingMove(ChessPiece chessPiece, int rank, int file) {
+        int currentRank = chessPiece.getRank();
+        int currentFile = chessPiece.getFile();
+
+        // king moves by one square which is having rank or file changed by 1
+        return Math.abs(currentRank - rank) == 1 || Math.abs(currentFile - file) == 1;
     }
 }

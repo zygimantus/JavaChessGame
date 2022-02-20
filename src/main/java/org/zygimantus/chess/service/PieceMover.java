@@ -1,6 +1,7 @@
 package org.zygimantus.chess.service;
 
 import org.springframework.stereotype.Service;
+import org.zygimantus.chess.ChessMove;
 import org.zygimantus.chess.Consts;
 import org.zygimantus.chess.board.TwoPlayerBoard;
 import org.zygimantus.chess.enums.Color;
@@ -11,40 +12,50 @@ import org.zygimantus.chess.pieces.ChessPiece;
 public class PieceMover {
 
     private final BoardInitializer boardInitializer;
+    private final PieceCaptor pieceCaptor;
 
-    public PieceMover(BoardInitializer boardInitializer) {
+    public PieceMover(BoardInitializer boardInitializer, PieceCaptor pieceCaptor) {
         this.boardInitializer = boardInitializer;
+        this.pieceCaptor = pieceCaptor;
     }
 
-    public boolean move(ChessPiece chessPiece, int rank, int file) {
+    public ChessMove move(ChessPiece chessPiece, int rank, int file) {
+
+        ChessMove.ChessMoveBuilder chessMoveBuilder = ChessMove.builder();
+
         boolean isValidMove = false;
 
         // first check if rank or file does not escape board boundaries
         if (rank >= Consts.NO_OF_RANKS || rank < 0) {
-            return false;
+            return chessMoveBuilder.build();
         }
         if (file >= Consts.NO_OF_RANKS || file < 0) {
-            return false;
+            return chessMoveBuilder.build();
         }
 
         TwoPlayerBoard board = boardInitializer.getBoard();
-        ChessPiece existingPiece = board.getSquares()[rank][file];
+        ChessPiece[][] squares = board.getSquares();
+        ChessPiece existingPiece = squares[rank][file];
 
+        // checking if such piece exists
         ChessPiece pickedPiece = boardInitializer.getPiece(chessPiece);
         if (pickedPiece == null) {
-            return false;
+            return chessMoveBuilder.build();
         }
 
         // move to same rank and file is invalid
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
         if (currentRank == rank && currentFile == file) {
-            return false;
+            return chessMoveBuilder.build();
         }
 
-        // cannot move a piece on existing same color piece
-        if (existingPiece != null && chessPiece.getColor().equals(existingPiece.getColor())) {
-            return false;
+        // checking if square is occupied
+        boolean capturingMove = existingPiece != null;
+        chessMoveBuilder.capturingMove(capturingMove);
+        // cannot move a piece on its own piece
+        if (capturingMove && chessPiece.getColor().equals(existingPiece.getColor())) {
+            return chessMoveBuilder.build();
         }
 
         if (chessPiece.getPiece() == Piece.KING) {
@@ -70,11 +81,15 @@ public class PieceMover {
         if (isValidMove) {
             pickedPiece.setRank(rank);
             pickedPiece.setFile(file);
-            board.getSquares()[rank][file] = pickedPiece;
-            board.getSquares()[currentRank][currentFile] = null;
+            squares[rank][file] = pickedPiece;
+            squares[currentRank][currentFile] = null;
         }
 
-        return isValidMove;
+        chessMoveBuilder.validMove(isValidMove);
+
+        chessMoveBuilder.updateDescription();
+
+        return chessMoveBuilder.build();
     }
 
     private boolean validateKnightMove(ChessPiece chessPiece, int rank, int file) {

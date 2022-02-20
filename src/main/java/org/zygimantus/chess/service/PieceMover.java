@@ -2,11 +2,12 @@ package org.zygimantus.chess.service;
 
 import org.springframework.stereotype.Service;
 import org.zygimantus.chess.ChessMove;
-import org.zygimantus.chess.Consts;
 import org.zygimantus.chess.board.TwoPlayerBoard;
 import org.zygimantus.chess.enums.Color;
 import org.zygimantus.chess.enums.Piece;
 import org.zygimantus.chess.pieces.ChessPiece;
+
+import static org.zygimantus.chess.Consts.*;
 
 @Service
 public class PieceMover {
@@ -26,20 +27,18 @@ public class PieceMover {
         boolean isValidMove = false;
 
         // first check if rank or file does not escape board boundaries
-        if (rank >= Consts.NO_OF_RANKS || rank < 0) {
-            return chessMoveBuilder.build();
-        }
-        if (file >= Consts.NO_OF_RANKS || file < 0) {
+        if (rank >= NO_OF_RANKS || rank < 0 || file >= NO_OF_RANKS || file < 0) {
+            chessMoveBuilder.description(CANNOT_MOVE_OVER_THE_EDGE_OF_BOARD);
             return chessMoveBuilder.build();
         }
 
         TwoPlayerBoard board = boardInitializer.getBoard();
         ChessPiece[][] squares = board.getSquares();
-        ChessPiece existingPiece = squares[rank][file];
 
         // checking if such piece exists
         ChessPiece pickedPiece = boardInitializer.getPiece(chessPiece);
         if (pickedPiece == null) {
+            chessMoveBuilder.description(CANNOT_MOVE_NON_EXISTING_PIECE);
             return chessMoveBuilder.build();
         }
 
@@ -47,14 +46,17 @@ public class PieceMover {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
         if (currentRank == rank && currentFile == file) {
+            chessMoveBuilder.description(CANNOT_MOVE_TO_THE_SAME_SQUARE);
             return chessMoveBuilder.build();
         }
 
         // checking if square is occupied
+        ChessPiece existingPiece = squares[rank][file];
         boolean capturingMove = existingPiece != null;
         chessMoveBuilder.capturingMove(capturingMove);
         // cannot move a piece on its own piece
         if (capturingMove && chessPiece.getColor().equals(existingPiece.getColor())) {
+            chessMoveBuilder.description(CANNOT_MOVE_ON_OWN_PIECE);
             return chessMoveBuilder.build();
         }
 
@@ -79,15 +81,21 @@ public class PieceMover {
         }
 
         if (isValidMove) {
+            if (capturingMove) {
+                chessMoveBuilder.description(String.format(PIECE_X_WAS_CAPTURED, existingPiece));
+            } else {
+                chessMoveBuilder.description(VALID_MOVE);
+            }
+
             pickedPiece.setRank(rank);
             pickedPiece.setFile(file);
             squares[rank][file] = pickedPiece;
             squares[currentRank][currentFile] = null;
+        } else {
+            chessMoveBuilder.description(INVALID_MOVE);
         }
 
         chessMoveBuilder.validMove(isValidMove);
-
-        chessMoveBuilder.updateDescription();
 
         return chessMoveBuilder.build();
     }

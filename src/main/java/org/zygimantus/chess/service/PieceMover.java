@@ -19,6 +19,13 @@ public class PieceMover {
     public boolean move(ChessPiece chessPiece, int rank, int file) {
         boolean isValidMove = false;
 
+        if (rank >= Consts.NO_OF_RANKS || rank < 0) {
+            return false;
+        }
+        if (file >= Consts.NO_OF_RANKS || file < 0) {
+            return false;
+        }
+
         TwoPlayerBoard board = boardInitializer.getBoard();
         ChessPiece existingPiece = board.getSquares()[rank][file];
 
@@ -39,6 +46,9 @@ public class PieceMover {
             return false;
         }
 
+        if (chessPiece.getPiece() == Piece.KING) {
+            isValidMove = validateKingMove(chessPiece, rank, file);
+        }
         if (chessPiece.getPiece() == Piece.PAWN) {
             isValidMove = validatePawnMove(chessPiece, rank, file);
         }
@@ -66,7 +76,7 @@ public class PieceMover {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
-        return currentFile == file && rank >= 0 && rank < Consts.NO_OF_RANKS || currentRank == rank && file >= 0 && file < Consts.NO_OF_FILES;
+        return currentFile == file || currentRank == rank;
     }
 
     private boolean validateBishopMove(ChessPiece chessPiece, int rank, int file) {
@@ -77,6 +87,24 @@ public class PieceMover {
     }
 
     private boolean validatePawnMove(ChessPiece chessPiece, int rank, int file) {
+        int currentRank = chessPiece.getRank();
+        int currentFile = chessPiece.getFile();
+
+        boolean validMove = false;
+        // pawns move always on same file forwards or backwards (according to color)
+        if (chessPiece.getColor() == Color.BLACK) {
+            if (currentFile == file && currentRank + 1 == rank) {
+                validMove = true;
+            }
+        } else {
+            if (currentFile == file && currentRank - 1 == rank) {
+                validMove = true;
+            }
+        }
+        return validMove;
+    }
+
+    private boolean validateKingMove(ChessPiece chessPiece, int rank, int file) {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 

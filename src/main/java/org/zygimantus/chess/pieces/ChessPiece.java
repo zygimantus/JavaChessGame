@@ -24,11 +24,13 @@ public abstract class ChessPiece {
 
     protected int rank;
     protected int file;
+    protected boolean firstMove;
 
     protected ChessPiece(Color color, Piece piece, int number) {
         this.color = color;
         this.piece = piece;
         this.number = number;
+        this.firstMove = true;
     }
 
     @Override

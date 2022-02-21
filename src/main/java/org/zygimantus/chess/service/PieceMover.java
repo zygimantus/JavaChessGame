@@ -47,6 +47,7 @@ public class PieceMover {
             chessMoveBuilder.description(CANNOT_MOVE_NON_EXISTING_PIECE);
             return chessMoveBuilder.build();
         }
+        chessPiece.setFirstMove(pickedPiece.isFirstMove());
 
         // move to same rank and file is invalid
         int currentRank = chessPiece.getRank();
@@ -96,6 +97,7 @@ public class PieceMover {
 
             pickedPiece.setRank(rank);
             pickedPiece.setFile(file);
+            pickedPiece.setFirstMove(false);
             squares[rank][file] = pickedPiece;
             squares[currentRank][currentFile] = null;
 
@@ -141,11 +143,11 @@ public class PieceMover {
         boolean validMove = false;
         // pawns move always on same file forwards or backwards (according to color)
         if (chessPiece.getColor() == Color.BLACK) {
-            if (currentFile == file && currentRank + 1 == rank) {
+            if (currentFile == file && (currentRank + 1 == rank || chessPiece.isFirstMove() && currentRank + 2 == rank)) {
                 validMove = true;
             }
         } else {
-            if (currentFile == file && currentRank - 1 == rank) {
+            if (currentFile == file && (currentRank - 1 == rank || chessPiece.isFirstMove() && currentRank - 2 == rank)) {
                 validMove = true;
             }
         }

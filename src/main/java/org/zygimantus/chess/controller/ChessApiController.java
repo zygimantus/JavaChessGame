@@ -23,7 +23,10 @@ public class ChessApiController {
     public ChessMove move(@RequestParam(value = "rank") int rank, @RequestParam(value = "file") int file,
                           @RequestBody ChessPiece chessPiece) {
 
-        return pieceMover.move(chessPiece, rank, file);
+        ChessMove chessMove = pieceMover.move(chessPiece, rank, file);
+        gameTracker.updateLastMove(chessMove);
+
+        return chessMove;
     }
 
     @GetMapping("/game")

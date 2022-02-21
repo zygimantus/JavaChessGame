@@ -1,6 +1,9 @@
 package org.zygimantus.chess.enums;
 
+/**
+ * In order who makes first move.
+ */
 public enum Color {
-    BLACK,
-    WHITE;
+    WHITE,
+    BLACK;
 }

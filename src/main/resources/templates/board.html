@@ -10,73 +10,107 @@
     <script type="text/javascript">
         $(function() {
             $('input').on('click', function () {
-                $.get("reset").done(function(fragment) { // get from controller
-                    $("#board").replaceWith(fragment); // update snippet of page
+                $.get("reset").done(function(fragment) {
+                    $("#board").replaceWith(fragment);
+                    getGame();
+                    initDragAndDrop();
                 });
             });
-          $(".piece").draggable({
-              revert: "invalid",
-              stack: ".empty",
-              distance: 0
-          });
-          $(".square").droppable({
-            accept: ".piece",
-            drop: function(e, ui) {
-                var piece = $(ui.draggable[0]);
-                var piece_name = piece.attr('name').split('-');
-                var piece_rank = $(piece.parent()[0]).attr('data-rank');
-                var piece_file = $(piece.parent()[0]).attr('data-file');
-
-                var square = $(this);
-                var move_to_rank = square.attr('data-rank');
-                var move_to_file = square.attr('data-file');
-
-                var piece = { color: piece_name[0], piece: piece_name[1], rank: piece_rank, file: piece_file };
-
-                $.ajax({
-                    url: "/api/move?rank=" + move_to_rank + "&file=" + move_to_file,
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(piece),
-                    contentType: "application/json; charset=UTF-8"
-                }).then(function(data) {
-                    $('ul').append('<li>' + data.description + '</li>');
-                    if (data.capturingMove) {
-                        $(":first-child", square).remove();
-                   }
-                });
-
-              ui.draggable.appendTo($(this)).css({
-                top: "0em",
-                left: "0em"
-              });
-            }
-          });
+            getGame();
+            initDragAndDrop();
         });
+        function getGame() {
+            $.get("/api/game").done(function(data) {
+                $("#color_to_move").html(data.colorToMove);
+                $("#black_count").html(data.pieceCount.BLACK);
+                $("#white_count").html(data.pieceCount.WHITE);
+            });
+        }
+        function initDragAndDrop(){
+            $(".piece").draggable({
+                revert: "invalid",
+                stack: ".empty",
+                distance: 0
+            });
+            $(".square").droppable({
+                accept: ".piece",
+                drop: function(e, ui) {
+                    var piece = $(ui.draggable);
+                    var piece_name = piece.attr('name').split('-');
+                    var piece_rank = $(piece.parent()[0]).attr('data-rank');
+                    var piece_file = $(piece.parent()[0]).attr('data-file');
+
+                    var square = $(this);
+                    var move_to_rank = square.attr('data-rank');
+                    var move_to_file = square.attr('data-file');
+
+                    var piece = { color: piece_name[0], piece: piece_name[1], rank: piece_rank, file: piece_file };
+
+                    $.ajax({
+                        url: "/api/move?rank=" + move_to_rank + "&file=" + move_to_file,
+                        type: "post",
+                        dataType: "json",
+                        data: JSON.stringify(piece),
+                        contentType: "application/json; charset=UTF-8"
+                    }).then(function(data) {
+                        $('ul').append('<li>' + data.description + '</li>');
+                        if (data.capturingMove) {
+                            $(":first-child", square).remove();
+                       }
+                       getGame();
+                    });
+
+                    ui.draggable.appendTo($(this)).css({
+                        top: "0em",
+                        left: "0em"
+                    });
+                }
+            });
+        }
     </script>
 </head>
-<body>
-<div class="content">
-<div class="row">
-    <div class="left">
-    <table id="board" class="table">
-        <tr th:each="rank,i: ${squares}">
-            <td th:each="square,j: ${rank}">
-                <div th:class="square" th:classappend="${(i.index + j.index) % 2 == 0} ? 'white_square' : 'grey_square'" th:attr="data-rank=${i.index},data-file=${j.index}">
-                    <div th:name="${square}" th:class="${square ne null} ? 'piece' : 'empty'" th:classappend="${square}" ></div>
+    <body>
+        <div class="content">
+            <div class="row">
+                <div class="left">
+                    <h1>Game information</h1>
+                    <table class="info">
+                        <tr>
+                            <td><b>Color to move</b></td>
+                            <td id="color_to_move"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><b>Piece count</b></td>
+                        </tr>
+                        <tr>
+                            <td>Black</td>
+                            <td>White</td>
+                        </tr>
+                        <tr>
+                            <td id="black_count"></td>
+                            <td id="white_count"></td>
+                        </tr>
+                    </table>
                 </div>
-            </td>
-        <tr>
-    </table>
-    </div>
-    <div class="right">
-        <input type='button' value="Reset">
-        <nav name="moves">
-            <ul>
-            </ul>
-        </nav>
-    </div>
-</div>
-</div>
-</body>
+                <div class="center">
+                    <table id="board" class="table">
+                        <tr th:each="rank,i: ${squares}">
+                            <td th:each="square,j: ${rank}">
+                                <div th:class="square" th:classappend="${(i.index + j.index) % 2 == 0} ? 'white_square' : 'grey_square'" th:attr="data-rank=${i.index},data-file=${j.index}">
+                                    <div th:name="${square}" th:class="${square ne null} ? 'piece' : 'empty'" th:classappend="${square}" ></div>
+                                </div>
+                            </td>
+                        <tr>
+                    </table>
+                </div>
+                <div class="right">
+                    <input type='button' value="Reset">
+                    <nav name="moves">
+                        <ul>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

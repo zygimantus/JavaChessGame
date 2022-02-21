@@ -11,6 +11,7 @@ public class Consts {
     public static final int NO_OF_FILES = 8;
     public static final int NO_OF_RANKS = 8;
 
+    public static final String INVALID_MOVE_X_TO_MOVE_NOW = "Invalid move, %s to move now";
     public static final String CANNOT_MOVE_OVER_THE_EDGE_OF_BOARD = "Cannot move over the edge of the board";
     public static final String CANNOT_MOVE_TO_THE_SAME_SQUARE = "Cannot move to the same square";
     public static final String CANNOT_MOVE_NON_EXISTING_PIECE = "Cannot move non-existing piece";

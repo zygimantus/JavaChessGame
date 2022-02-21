@@ -1,17 +1,33 @@
 .content {
-  max-width: 1024px;
   margin: auto;
 }
 .row {
   display: flex;
 }
 .left {
-  width: 65%;
-}
-.right {
-  width: 35%;
+  width: 30%;
   text-align: center;
 }
+.center {
+  width: 30%;
+}
+.right {
+  width: 30%;
+  text-align: center;
+}
+table.info {
+    margin-left:auto;
+    margin-right:auto;
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 50%;
+    height:40px;
+}
+table.info td {
+    height: 14px;
+    border: 1px solid black;
+   border-collapse: collapse;
+};
 nav ul {
     height:720px;
 }
@@ -26,11 +42,11 @@ nav li {
   width: 100%;
   border-spacing: 0;
 }
-td {
+.table td {
   width: 12.5%;
   position: relative;
 }
-td:after {
+.table td:after {
   content: '';
   display: block;
   margin-top: 100%;

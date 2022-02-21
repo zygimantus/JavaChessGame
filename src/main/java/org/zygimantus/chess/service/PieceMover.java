@@ -13,11 +13,11 @@ import static org.zygimantus.chess.Consts.*;
 public class PieceMover {
 
     private final BoardInitializer boardInitializer;
-    private final PieceCaptor pieceCaptor;
+    private final GameTracker gameTracker;
 
-    public PieceMover(BoardInitializer boardInitializer, PieceCaptor pieceCaptor) {
+    public PieceMover(BoardInitializer boardInitializer, GameTracker gameTracker) {
         this.boardInitializer = boardInitializer;
-        this.pieceCaptor = pieceCaptor;
+        this.gameTracker = gameTracker;
     }
 
     public ChessMove move(ChessPiece chessPiece, int rank, int file) {
@@ -26,7 +26,13 @@ public class PieceMover {
 
         boolean isValidMove = false;
 
-        // first check if rank or file does not escape board boundaries
+        // first check if it is valid color move
+        if (!gameTracker.getColorToMove().equals(chessPiece.getColor())) {
+            chessMoveBuilder.description(String.format(INVALID_MOVE_X_TO_MOVE_NOW, gameTracker.getColorToMove()));
+            return chessMoveBuilder.build();
+        }
+
+        // check if rank or file does not escape board boundaries
         if (rank >= NO_OF_RANKS || rank < 0 || file >= NO_OF_RANKS || file < 0) {
             chessMoveBuilder.description(CANNOT_MOVE_OVER_THE_EDGE_OF_BOARD);
             return chessMoveBuilder.build();
@@ -83,6 +89,7 @@ public class PieceMover {
         if (isValidMove) {
             if (capturingMove) {
                 chessMoveBuilder.description(String.format(PIECE_X_WAS_CAPTURED, existingPiece));
+                gameTracker.getCurrentChessGame().reducePieceCount(existingPiece.getColor());
             } else {
                 chessMoveBuilder.description(VALID_MOVE);
             }
@@ -91,6 +98,8 @@ public class PieceMover {
             pickedPiece.setFile(file);
             squares[rank][file] = pickedPiece;
             squares[currentRank][currentFile] = null;
+
+            gameTracker.endMove(chessPiece.getColor());
         } else {
             chessMoveBuilder.description(INVALID_MOVE);
         }

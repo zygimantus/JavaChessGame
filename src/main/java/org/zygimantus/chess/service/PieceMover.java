@@ -71,7 +71,7 @@ public class PieceMover {
             isValidMove = validateKingMove(chessPiece, rank, file);
         }
         if (chessPiece.getPiece() == Piece.PAWN) {
-            isValidMove = validatePawnMove(chessPiece, rank, file);
+            isValidMove = validatePawnMove(chessPiece, rank, file, capturingMove);
         }
         if (chessPiece.getPiece() == Piece.KNIGHT) {
             isValidMove = validateKnightMove(chessPiece, rank, file);
@@ -136,7 +136,7 @@ public class PieceMover {
         return Math.abs(currentRank - rank) == Math.abs(currentFile - file);
     }
 
-    private boolean validatePawnMove(ChessPiece chessPiece, int rank, int file) {
+    private boolean validatePawnMove(ChessPiece chessPiece, int rank, int file, boolean capturingMove) {
         int currentRank = chessPiece.getRank();
         int currentFile = chessPiece.getFile();
 
@@ -145,9 +145,13 @@ public class PieceMover {
         if (chessPiece.getColor() == Color.BLACK) {
             if (currentFile == file && (currentRank + 1 == rank || chessPiece.isFirstMove() && currentRank + 2 == rank)) {
                 validMove = true;
+            } else if (Math.abs(currentFile - file) == 1 && currentRank + 1 == rank && capturingMove) {
+                validMove = true;
             }
         } else {
             if (currentFile == file && (currentRank - 1 == rank || chessPiece.isFirstMove() && currentRank - 2 == rank)) {
+                validMove = true;
+            } else if (Math.abs(currentFile - file) == 1 && currentRank - 1 == rank && capturingMove) {
                 validMove = true;
             }
         }

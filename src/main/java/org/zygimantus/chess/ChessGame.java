@@ -16,6 +16,7 @@ public class ChessGame {
      * Holds color which needs to make a move.
      */
     private Color colorToMove = Color.values()[0];
+    private ChessMove lastMove;
     private final EnumMap<Color, Integer> pieceCount = new EnumMap<>(Color.class);
 
     public ChessGame(int noOfPlayers) {

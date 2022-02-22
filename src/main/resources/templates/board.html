@@ -58,7 +58,7 @@
                     }).then(function(data) {
                         $('ul').append('<li>' + data.description + '</li>');
                         if (data.capturingMove) {
-                            $(":first-child", square).remove();
+                            $(":last-child", square).remove();
                         }
                         if (!data.validMove) {
                             piece.css({

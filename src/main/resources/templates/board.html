@@ -12,6 +12,7 @@
             $('input').on('click', function () {
                 $.get("reset").done(function(fragment) {
                     $("#board").replaceWith(fragment);
+                    $("ul li").remove();
                     getGame();
                     initDragAndDrop();
                 });
@@ -26,11 +27,13 @@
                 $("#white_count").html(data.pieceCount.WHITE);
             });
         }
-        function initDragAndDrop(){
+        function initDragAndDrop() {
             $(".piece").draggable({
-                revert: "invalid",
                 stack: ".empty",
-                distance: 0
+                distance: 0,
+                start: function(event,ui) {
+                    start = ui.position;
+                }
             });
             $(".square").droppable({
                 accept: ".piece",
@@ -44,26 +47,33 @@
                     var move_to_rank = square.attr('data-rank');
                     var move_to_file = square.attr('data-file');
 
-                    var piece = { color: piece_name[0], piece: piece_name[1], rank: piece_rank, file: piece_file };
+                    var piece_json = { color: piece_name[0], piece: piece_name[1], rank: piece_rank, file: piece_file };
 
                     $.ajax({
                         url: "/api/move?rank=" + move_to_rank + "&file=" + move_to_file,
                         type: "post",
                         dataType: "json",
-                        data: JSON.stringify(piece),
+                        data: JSON.stringify(piece_json),
                         contentType: "application/json; charset=UTF-8"
                     }).then(function(data) {
                         $('ul').append('<li>' + data.description + '</li>');
                         if (data.capturingMove) {
                             $(":first-child", square).remove();
-                       }
+                        }
+                        if (!data.validMove) {
+                            piece.css({
+                                top: start.top,
+                                left: start.left
+                            });
+                        } else {
+                            piece.appendTo(square).css({
+                                top: "0em",
+                                left: "0em"
+                            });
+                        }
                        getGame();
                     });
 
-                    ui.draggable.appendTo($(this)).css({
-                        top: "0em",
-                        left: "0em"
-                    });
                 }
             });
         }
@@ -105,8 +115,8 @@
                 </div>
                 <div class="right">
                     <input type='button' value="Reset">
-                    <nav name="moves">
-                        <ul>
+                    <nav id="moves">
+                        <ul >
                         </ul>
                     </nav>
                 </div>

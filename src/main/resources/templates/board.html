@@ -57,15 +57,15 @@
                         contentType: "application/json; charset=UTF-8"
                     }).then(function(data) {
                         $('ul').append('<li>' + data.description + '</li>');
-                        if (data.capturingMove) {
-                            $(":first-child", square).remove();
-                        }
                         if (!data.validMove) {
                             piece.css({
                                 top: start.top,
                                 left: start.left
                             });
                         } else {
+                            if (data.capturingMove) {
+                                $(":last-child", square).remove();
+                            }
                             piece.appendTo(square).css({
                                 top: "0em",
                                 left: "0em"

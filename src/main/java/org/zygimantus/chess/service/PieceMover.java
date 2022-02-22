@@ -60,12 +60,12 @@ public class PieceMover {
         // checking if square is occupied
         ChessPiece existingPiece = squares[rank][file];
         boolean capturingMove = existingPiece != null;
-        chessMoveBuilder.capturingMove(capturingMove);
         // cannot move a piece on its own piece
         if (capturingMove && chessPiece.getColor().equals(existingPiece.getColor())) {
             chessMoveBuilder.description(CANNOT_MOVE_ON_OWN_PIECE);
             return chessMoveBuilder.build();
         }
+        chessMoveBuilder.capturingMove(capturingMove);
 
         if (chessPiece.getPiece() == Piece.KING) {
             isValidMove = validateKingMove(chessPiece, rank, file);
@@ -142,14 +142,15 @@ public class PieceMover {
 
         boolean validMove = false;
         // pawns move always on same file forwards or backwards (according to color)
+        // pawns change files only when capturing pieces
         if (chessPiece.getColor() == Color.BLACK) {
-            if (currentFile == file && (currentRank + 1 == rank || chessPiece.isFirstMove() && currentRank + 2 == rank)) {
+            if (currentFile == file && (currentRank + 1 == rank || chessPiece.isFirstMove() && currentRank + 2 == rank) && !capturingMove) {
                 validMove = true;
             } else if (Math.abs(currentFile - file) == 1 && currentRank + 1 == rank && capturingMove) {
                 validMove = true;
             }
         } else {
-            if (currentFile == file && (currentRank - 1 == rank || chessPiece.isFirstMove() && currentRank - 2 == rank)) {
+            if (currentFile == file && (currentRank - 1 == rank || chessPiece.isFirstMove() && currentRank - 2 == rank)  && !capturingMove) {
                 validMove = true;
             } else if (Math.abs(currentFile - file) == 1 && currentRank - 1 == rank && capturingMove) {
                 validMove = true;
